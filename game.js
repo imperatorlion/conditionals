@@ -676,6 +676,8 @@ function launchMinigame() {
   mini.shotInProgress = false;
   mini.completed = false;
   minigameStatus.textContent = "";
+  keys.clear();
+  minigameCanvas.focus();
   drawMinigame();
 }
 
@@ -701,7 +703,10 @@ function drawMinigame() {
 }
 
 function updateMinigame() {
-  if (!inMinigame) return;
+  if (!inMinigame) {
+    requestAnimationFrame(updateMinigame);
+    return;
+  }
   if (!mini.completed) {
     mini.goalX += mini.goalSpeed * mini.direction;
     if (mini.goalX <= 40 || mini.goalX + mini.goalWidth >= minigameCanvas.width - 40) {
