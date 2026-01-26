@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conditional Quest</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="hearts-layer" aria-hidden="true"></div>
+  <header class="hud">
+    <div class="hud__title">Conditional Quest</div>
+    <div class="hud__stats">
+      <span id="level-label">Level 1</span>
+      <span id="score-label">Score: 0</span>
+    </div>
+  </header>
+
+  <main class="game-area">
+    <canvas id="game-canvas" width="960" height="640" aria-label="Game"></canvas>
+  </main>
+
+  <div class="overlay" id="start-screen">
+    <div class="panel">
+      <h1>Welkom, ontdekkers!</h1>
+      <p>
+        Beweeg met de pijltjestoetsen door het mapje in Pokémon-stijl. Loop tegen een schatkist om
+        een vraag over conditionals te openen. Je verdient 10 punten per juist antwoord.
+      </p>
+      <button id="start-button">Start het avontuur</button>
+    </div>
+  </div>
+
+  <div class="overlay hidden" id="question-screen">
+    <div class="panel" id="question-panel">
+      <h2 id="question-level">Level</h2>
+      <p id="question-text"></p>
+      <div id="question-choices" class="choices"></div>
+      <div id="question-input" class="hidden">
+        <input id="answer-input" type="text" placeholder="Typ je antwoord" />
+        <button id="submit-answer">Controleer</button>
+      </div>
+      <div id="question-feedback" class="feedback"></div>
+      <button id="next-question" class="hidden">Ga verder</button>
+    </div>
+  </div>
+
+  <div class="overlay hidden" id="level-complete-screen">
+    <div class="panel">
+      <h2>Level gehaald!</h2>
+      <p>Maak je klaar voor de minigame. Mik goed: het doel beweegt!</p>
+      <button id="start-minigame">Start minigame</button>
+    </div>
+  </div>
+
+  <div class="overlay hidden" id="minigame-screen">
+    <div class="panel minigame-panel">
+      <h2>Penalty Master</h2>
+      <p>Beweeg de bal met de pijltjes. Druk op Enter om te schieten.</p>
+      <canvas id="minigame-canvas" width="800" height="300" tabindex="0"></canvas>
+      <div class="minigame-status" id="minigame-status"></div>
+      <button id="continue-story" class="hidden">Verder naar het volgende level</button>
+    </div>
+  </div>
+
+  <div class="overlay hidden" id="bonus-screen">
+    <div class="panel minigame-panel">
+      <h2>Bonusgame: Tennis Catch</h2>
+      <p>Vang 5 ballen met je racket. Beweeg met de pijltjestoetsen.</p>
+      <canvas id="bonus-canvas" width="800" height="300" tabindex="0"></canvas>
+      <div class="minigame-status" id="bonus-status"></div>
+      <button id="start-bonus">Start bonusgame</button>
+      <button id="finish-bonus" class="hidden">Bekijk je eindscore</button>
+    </div>
+  </div>
+
+  <div class="overlay hidden" id="game-complete-screen">
+    <div class="panel">
+      <h2>Geweldig gedaan!</h2>
+      <p>Je hebt alle levels uitgespeeld. Eindscore: <span id="final-score"></span></p>
+      <button id="restart-game">Speel opnieuw</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
