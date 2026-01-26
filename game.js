@@ -20,6 +20,11 @@ const minigameScreen = document.getElementById("minigame-screen");
 const minigameCanvas = document.getElementById("minigame-canvas");
 const minigameStatus = document.getElementById("minigame-status");
 const continueStory = document.getElementById("continue-story");
+const bonusScreen = document.getElementById("bonus-screen");
+const bonusCanvas = document.getElementById("bonus-canvas");
+const bonusStatus = document.getElementById("bonus-status");
+const startBonus = document.getElementById("start-bonus");
+const finishBonus = document.getElementById("finish-bonus");
 const gameCompleteScreen = document.getElementById("game-complete-screen");
 const finalScore = document.getElementById("final-score");
 const restartGame = document.getElementById("restart-game");
@@ -991,6 +996,7 @@ let activeQuestions = [];
 let currentQuestion = null;
 let awaitingAnswer = false;
 let inMinigame = false;
+let inBonus = false;
 
 const keys = new Set();
 
@@ -1255,8 +1261,7 @@ continueStory.addEventListener("click", () => {
     currentLevelIndex += 1;
     setupLevel();
   } else {
-    finalScore.textContent = score;
-    gameCompleteScreen.classList.remove("hidden");
+    launchBonusScreen();
   }
 });
 
@@ -1265,6 +1270,8 @@ restartGame.addEventListener("click", () => {
   currentLevelIndex = 0;
   scoreLabel.textContent = "Score: 0";
   gameCompleteScreen.classList.add("hidden");
+  bonusScreen.classList.add("hidden");
+  inBonus = false;
   setupLevel();
 });
 
@@ -1281,7 +1288,7 @@ function handleKeyUp(event) {
 }
 
 function gameLoop() {
-  if (!awaitingAnswer && !inMinigame) {
+  if (!awaitingAnswer && !inMinigame && !inBonus) {
     if (keys.has("ArrowUp")) {
       keys.delete("ArrowUp");
       tryMove(0, -1);
@@ -1315,6 +1322,22 @@ const mini = {
   completed: false,
 };
 
+const bonus = {
+  racketX: 320,
+  racketY: 240,
+  racketWidth: 140,
+  racketHeight: 14,
+  ballX: 120,
+  ballY: -20,
+  ballRadius: 10,
+  ballSpeedY: 3,
+  ballSpeedX: 1,
+  caught: 0,
+  target: 5,
+  active: false,
+  finished: false,
+};
+
 function launchMinigame() {
   inMinigame = true;
   minigameScreen.classList.remove("hidden");
@@ -1328,6 +1351,23 @@ function launchMinigame() {
   keys.clear();
   minigameCanvas.focus();
   drawMinigame();
+}
+
+function launchBonusScreen() {
+  inBonus = true;
+  bonusScreen.classList.remove("hidden");
+  bonus.caught = 0;
+  bonus.active = false;
+  bonus.finished = false;
+  bonus.racketX = bonusCanvas.width / 2 - bonus.racketWidth / 2;
+  bonus.racketY = bonusCanvas.height - 40;
+  resetBonusBall();
+  bonusStatus.textContent = "Klaar voor de ultieme beloning?";
+  startBonus.classList.remove("hidden");
+  finishBonus.classList.add("hidden");
+  keys.clear();
+  bonusCanvas.focus();
+  drawBonusGame();
 }
 
 function drawMinigame() {
@@ -1378,10 +1418,16 @@ function updateMinigame() {
         const scored =
           mini.ballX >= mini.goalX &&
           mini.ballX <= mini.goalX + mini.goalWidth;
-        minigameStatus.textContent = scored
-          ? "Goal! Sterk gemikt!"
-          : "Net naast! Volgende level wacht.";
+        const nextStepText =
+          currentLevelIndex < levels.length - 1
+            ? "Net naast! Volgende level wacht."
+            : "Net naast! De bonusgame wacht.";
+        minigameStatus.textContent = scored ? "Goal! Sterk gemikt!" : nextStepText;
         mini.completed = true;
+        continueStory.textContent =
+          currentLevelIndex < levels.length - 1
+            ? "Verder naar het volgende level"
+            : "Ontgrendel de bonusgame";
         continueStory.classList.remove("hidden");
       }
     }
@@ -1397,9 +1443,121 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
+startBonus.addEventListener("click", () => {
+  bonus.active = true;
+  bonusStatus.textContent = `Vang ${bonus.target} ballen!`;
+  startBonus.classList.add("hidden");
+  bonusCanvas.focus();
+});
+
+finishBonus.addEventListener("click", () => {
+  bonusScreen.classList.add("hidden");
+  inBonus = false;
+  finalScore.textContent = score;
+  gameCompleteScreen.classList.remove("hidden");
+});
+
+function resetBonusBall() {
+  bonus.ballX = 40 + Math.random() * (bonusCanvas.width - 80);
+  bonus.ballY = -20;
+  bonus.ballSpeedY = 3 + Math.random() * 2;
+  bonus.ballSpeedX = (Math.random() * 2 - 1) * 1.5;
+}
+
+function drawBonusGame() {
+  const bctx = bonusCanvas.getContext("2d");
+  bctx.clearRect(0, 0, bonusCanvas.width, bonusCanvas.height);
+  bctx.fillStyle = "#e6f7ff";
+  bctx.fillRect(0, 0, bonusCanvas.width, bonusCanvas.height);
+
+  bctx.fillStyle = "#cde47b";
+  bctx.fillRect(0, bonusCanvas.height - 50, bonusCanvas.width, 50);
+
+  bctx.strokeStyle = "#ffffff";
+  bctx.lineWidth = 3;
+  bctx.beginPath();
+  bctx.moveTo(0, bonusCanvas.height - 50);
+  bctx.lineTo(bonusCanvas.width, bonusCanvas.height - 50);
+  bctx.stroke();
+
+  bctx.fillStyle = "#f4b860";
+  bctx.fillRect(
+    bonus.racketX,
+    bonus.racketY,
+    bonus.racketWidth,
+    bonus.racketHeight
+  );
+  bctx.strokeStyle = "#7b4b2a";
+  bctx.lineWidth = 2;
+  bctx.strokeRect(
+    bonus.racketX,
+    bonus.racketY,
+    bonus.racketWidth,
+    bonus.racketHeight
+  );
+
+  bctx.fillStyle = "#ffeb5a";
+  bctx.beginPath();
+  bctx.arc(bonus.ballX, bonus.ballY, bonus.ballRadius, 0, Math.PI * 2);
+  bctx.fill();
+  bctx.strokeStyle = "#f59fcf";
+  bctx.stroke();
+}
+
+function updateBonusGame() {
+  if (!inBonus) {
+    requestAnimationFrame(updateBonusGame);
+    return;
+  }
+
+  if (bonus.active && !bonus.finished) {
+    if (keys.has("ArrowLeft")) {
+      bonus.racketX = Math.max(0, bonus.racketX - 8);
+    }
+    if (keys.has("ArrowRight")) {
+      bonus.racketX = Math.min(
+        bonusCanvas.width - bonus.racketWidth,
+        bonus.racketX + 8
+      );
+    }
+
+    bonus.ballX += bonus.ballSpeedX;
+    bonus.ballY += bonus.ballSpeedY;
+
+    if (bonus.ballX <= bonus.ballRadius || bonus.ballX >= bonusCanvas.width - bonus.ballRadius) {
+      bonus.ballSpeedX *= -1;
+    }
+
+    const hitRacket =
+      bonus.ballY + bonus.ballRadius >= bonus.racketY &&
+      bonus.ballY - bonus.ballRadius <= bonus.racketY + bonus.racketHeight &&
+      bonus.ballX >= bonus.racketX &&
+      bonus.ballX <= bonus.racketX + bonus.racketWidth;
+
+    if (hitRacket) {
+      bonus.caught += 1;
+      if (bonus.caught >= bonus.target) {
+        bonus.finished = true;
+        bonus.active = false;
+        bonusStatus.textContent = "Perfect! Je hebt alle ballen gevangen.";
+        finishBonus.classList.remove("hidden");
+      } else {
+        bonusStatus.textContent = `Gevangen: ${bonus.caught}/${bonus.target}`;
+        resetBonusBall();
+      }
+    } else if (bonus.ballY > bonusCanvas.height + 20) {
+      resetBonusBall();
+    }
+  }
+
+  drawBonusGame();
+  requestAnimationFrame(updateBonusGame);
+}
+
 function startLoops() {
   requestAnimationFrame(gameLoop);
   requestAnimationFrame(updateMinigame);
+  requestAnimationFrame(updateBonusGame);
 }
 
 startLoops();
