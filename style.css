@@ -87,17 +87,6 @@ canvas {
   color: #b23c7c;
 }
 
-.helper-text {
-  font-size: 0.95rem;
-  color: #7b1d4b;
-  margin-bottom: 20px;
-}
-
-.helper-text code {
-  background: #ffe2f2;
-  padding: 2px 6px;
-  border-radius: 6px;
-}
 
 button {
   background: #ff77b7;

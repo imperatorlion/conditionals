@@ -34,12 +34,22 @@ const player = {
   color: "#4b6ff2",
 };
 
-const baseChests = [
-  { x: 5, y: 2 },
-  { x: 10, y: 3 },
-  { x: 3, y: 7 },
-  { x: 12, y: 6 },
-  { x: 7, y: 9 },
+const chestSpawnOptions = [
+  { x: 2, y: 2 },
+  { x: 4, y: 1 },
+  { x: 6, y: 2 },
+  { x: 8, y: 3 },
+  { x: 11, y: 2 },
+  { x: 13, y: 3 },
+  { x: 3, y: 5 },
+  { x: 6, y: 6 },
+  { x: 9, y: 5 },
+  { x: 12, y: 5 },
+  { x: 2, y: 8 },
+  { x: 5, y: 8 },
+  { x: 8, y: 9 },
+  { x: 11, y: 9 },
+  { x: 13, y: 8 },
 ];
 
 const obstacles = [
@@ -140,6 +150,66 @@ const questionBank = {
       ],
       answer: "If Milo studies, he passes tests.",
     },
+    {
+      type: "tf",
+      text: "True/False: If Yorben leaves ice in the sun, it melts.",
+      answer: true,
+    },
+    {
+      type: "input",
+      text: "Vul in: If Sabina ______ (mix) red and blue, she gets purple.",
+      answer: ["mixes"],
+    },
+    {
+      type: "mcq",
+      text: "Welke zin is een zero conditional over Emiel?",
+      choices: [
+        "If Emiel heats water, it boils.",
+        "If Emiel heated water, it would boil.",
+        "If Emiel will heat water, it boils.",
+      ],
+      answer: "If Emiel heats water, it boils.",
+    },
+    {
+      type: "tf",
+      text: "True/False: If Ruby drops glass, it breaks.",
+      answer: true,
+    },
+    {
+      type: "input",
+      text: "Vul in: If Louic ______ (not eat), he feels hungry.",
+      answer: ["doesn't eat", "does not eat"],
+    },
+    {
+      type: "mcq",
+      text: "Kies de correcte zin voor Lina.",
+      choices: [
+        "If Lina touches a flame, it burns.",
+        "If Lina touched a flame, it burns.",
+        "If Lina will touch a flame, it burns.",
+      ],
+      answer: "If Lina touches a flame, it burns.",
+    },
+    {
+      type: "tf",
+      text: "True/False: If Staf puts bread in a toaster, it toasts.",
+      answer: true,
+    },
+    {
+      type: "input",
+      text: "Vul in: If Iljano ______ (go) to bed late, he feels sleepy.",
+      answer: ["goes"],
+    },
+    {
+      type: "mcq",
+      text: "Welke zin past bij Nolan?",
+      choices: [
+        "If Nolan exercises, he feels stronger.",
+        "If Nolan exercised, he would feel stronger.",
+        "If Nolan will exercise, he feels stronger.",
+      ],
+      answer: "If Nolan exercises, he feels stronger.",
+    },
   ],
   first: [
     {
@@ -211,6 +281,66 @@ const questionBank = {
         "If Jari will finish early, he joins us.",
       ],
       answer: "If Jari finishes early, he will join us.",
+    },
+    {
+      type: "tf",
+      text: "True/False: If Elise studies tonight, she will feel confident tomorrow.",
+      answer: true,
+    },
+    {
+      type: "input",
+      text: "Vul in: If Iben ______ (win) the match, he will celebrate.",
+      answer: ["wins"],
+    },
+    {
+      type: "mcq",
+      text: "Welke zin is correct voor Yluna?",
+      choices: [
+        "If Yluna practices, she will improve.",
+        "If Yluna will practice, she improves.",
+        "If Yluna practiced, she will improve.",
+      ],
+      answer: "If Yluna practices, she will improve.",
+    },
+    {
+      type: "tf",
+      text: "True/False: If Dylan doesn't set an alarm, he will oversleep.",
+      answer: true,
+    },
+    {
+      type: "input",
+      text: "Vul in: If Jaimy ______ (not ask), she will not know.",
+      answer: ["doesn't ask", "does not ask"],
+    },
+    {
+      type: "mcq",
+      text: "Kies de juiste zin voor Matthias.",
+      choices: [
+        "If Matthias gets help, he will finish faster.",
+        "If Matthias got help, he will finish faster.",
+        "If Matthias will get help, he finishes faster.",
+      ],
+      answer: "If Matthias gets help, he will finish faster.",
+    },
+    {
+      type: "tf",
+      text: "True/False: If Cashile eats breakfast, he will have more energy.",
+      answer: true,
+    },
+    {
+      type: "input",
+      text: "Vul in: If Briek ______ (be) late, he will call the teacher.",
+      answer: ["is"],
+    },
+    {
+      type: "mcq",
+      text: "Welke zin past bij Gilles?",
+      choices: [
+        "If Gilles arrives early, he will save a seat.",
+        "If Gilles arrived early, he will save a seat.",
+        "If Gilles will arrive early, he saves a seat.",
+      ],
+      answer: "If Gilles arrives early, he will save a seat.",
     },
   ],
   second: [
@@ -284,6 +414,66 @@ const questionBank = {
       ],
       answer: "If Gilles had more sleep, he would feel better.",
     },
+    {
+      type: "tf",
+      text: "True/False: If Tristan lived closer, he would visit more often.",
+      answer: true,
+    },
+    {
+      type: "input",
+      text: "Vul in: If Nika ______ (be) less busy, she would join the club.",
+      answer: ["were"],
+    },
+    {
+      type: "mcq",
+      text: "Welke zin is correct voor Kobe?",
+      choices: [
+        "If Kobe had a skateboard, he would skate to school.",
+        "If Kobe has a skateboard, he would skate to school.",
+        "If Kobe had a skateboard, he will skate to school.",
+      ],
+      answer: "If Kobe had a skateboard, he would skate to school.",
+    },
+    {
+      type: "tf",
+      text: "True/False: If Brent were more patient, he would make fewer mistakes.",
+      answer: true,
+    },
+    {
+      type: "input",
+      text: "Vul in: If Arthur ______ (have) more money, he would buy new shoes.",
+      answer: ["had"],
+    },
+    {
+      type: "mcq",
+      text: "Welke zin past bij Niel?",
+      choices: [
+        "If Niel spoke Spanish, he would travel more.",
+        "If Niel speaks Spanish, he would travel more.",
+        "If Niel spoke Spanish, he will travel more.",
+      ],
+      answer: "If Niel spoke Spanish, he would travel more.",
+    },
+    {
+      type: "tf",
+      text: "True/False: If Manu had more time, he would help Camille.",
+      answer: true,
+    },
+    {
+      type: "input",
+      text: "Vul in: If Isa ______ (be) a bird, she would fly.",
+      answer: ["were"],
+    },
+    {
+      type: "mcq",
+      text: "Kies de juiste optie voor Leon.",
+      choices: [
+        "If Leon owned a dog, he would walk it daily.",
+        "If Leon owns a dog, he would walk it daily.",
+        "If Leon owned a dog, he will walk it daily.",
+      ],
+      answer: "If Leon owned a dog, he would walk it daily.",
+    },
   ],
   third: [
     {
@@ -356,6 +546,66 @@ const questionBank = {
       ],
       answer: "If Dakôta had called Remi, they would have met up.",
     },
+    {
+      type: "tf",
+      text: "True/False: If Yorben had saved the file, he would not have lost it.",
+      answer: true,
+    },
+    {
+      type: "input",
+      text: "Vul in: If Sabina ______ (not miss) the bus, she would have arrived on time.",
+      answer: ["hadn't missed", "had not missed"],
+    },
+    {
+      type: "mcq",
+      text: "Welke zin is correct voor Emiel?",
+      choices: [
+        "If Emiel had practiced, he would have played better.",
+        "If Emiel practiced, he would have played better.",
+        "If Emiel had practiced, he would play better.",
+      ],
+      answer: "If Emiel had practiced, he would have played better.",
+    },
+    {
+      type: "tf",
+      text: "True/False: If Ruby had left earlier, she would have missed the lesson.",
+      answer: false,
+    },
+    {
+      type: "input",
+      text: "Vul in: If Louic ______ (not forget) his password, he would have logged in.",
+      answer: ["hadn't forgotten", "had not forgotten"],
+    },
+    {
+      type: "mcq",
+      text: "Welke zin past bij Lina?",
+      choices: [
+        "If Lina had studied, she would have passed.",
+        "If Lina studied, she would have passed.",
+        "If Lina had studied, she would pass.",
+      ],
+      answer: "If Lina had studied, she would have passed.",
+    },
+    {
+      type: "tf",
+      text: "True/False: If Staf had trained more, he would have felt stronger.",
+      answer: true,
+    },
+    {
+      type: "input",
+      text: "Vul in: If Iljano ______ (not be) so tired, he would have finished the task.",
+      answer: ["hadn't been", "had not been"],
+    },
+    {
+      type: "mcq",
+      text: "Welke zin is correct voor Nolan?",
+      choices: [
+        "If Nolan had called earlier, he would have reached Milo.",
+        "If Nolan called earlier, he would have reached Milo.",
+        "If Nolan had called earlier, he would reach Milo.",
+      ],
+      answer: "If Nolan had called earlier, he would have reached Milo.",
+    },
   ],
 };
 
@@ -385,7 +635,10 @@ function setupLevel() {
   player.x = 1;
   player.y = 1;
   openedChests = 0;
-  chests = baseChests.map((chest) => ({ ...chest, opened: false }));
+  chests = shuffle(chestSpawnOptions)
+    .filter((chest) => !isBlocked(chest.x, chest.y))
+    .slice(0, 5)
+    .map((chest) => ({ ...chest, opened: false }));
   const bank = questionBank[level.key];
   activeQuestions = shuffle(bank).slice(0, 5);
   drawScene();
