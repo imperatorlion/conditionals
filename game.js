@@ -602,6 +602,9 @@ continueStory.addEventListener("click", () => {
   minigameScreen.classList.add("hidden");
   continueStory.classList.add("hidden");
   minigameStatus.textContent = "";
+  inMinigame = false;
+  mini.shotInProgress = false;
+  keys.clear();
   if (currentLevelIndex < levels.length - 1) {
     currentLevelIndex += 1;
     setupLevel();
@@ -658,7 +661,7 @@ const mini = {
   ballY: 240,
   ballRadius: 14,
   goalX: 200,
-  goalWidth: 160,
+  goalWidth: 144,
   goalSpeed: 2.4,
   shotInProgress: false,
   shotSpeed: 6,
