@@ -418,16 +418,32 @@ function drawGrid() {
 }
 
 function drawPlayer() {
-  ctx.fillStyle = player.color;
+  const centerX = player.x * tileSize + tileSize / 2;
+  const centerY = player.y * tileSize + tileSize / 2;
+  ctx.fillStyle = "#f8c9a6";
   ctx.beginPath();
-  ctx.arc(
-    player.x * tileSize + tileSize / 2,
-    player.y * tileSize + tileSize / 2,
-    tileSize / 2.5,
-    0,
-    Math.PI * 2
-  );
+  ctx.arc(centerX, centerY - 12, 8, 0, Math.PI * 2);
   ctx.fill();
+
+  ctx.fillStyle = "#5b3f99";
+  ctx.fillRect(centerX - 10, centerY - 6, 20, 16);
+
+  ctx.fillStyle = "#1f8b4c";
+  ctx.fillRect(centerX - 12, centerY + 6, 8, 14);
+  ctx.fillRect(centerX + 4, centerY + 6, 8, 14);
+
+  ctx.strokeStyle = "#1f8b4c";
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(centerX - 12, centerY + 16);
+  ctx.lineTo(centerX - 18, centerY + 24);
+  ctx.moveTo(centerX + 12, centerY + 16);
+  ctx.lineTo(centerX + 18, centerY + 24);
+  ctx.stroke();
+
+  ctx.fillStyle = "#7b1d4b";
+  ctx.fillRect(centerX - 14, centerY - 4, 6, 10);
+  ctx.fillRect(centerX + 8, centerY - 4, 6, 10);
 }
 
 function drawChests() {
@@ -604,7 +620,10 @@ restartGame.addEventListener("click", () => {
 });
 
 function handleKeyDown(event) {
-  if (awaitingAnswer || inMinigame) return;
+  if (awaitingAnswer) return;
+  if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Enter"].includes(event.key)) {
+    event.preventDefault();
+  }
   keys.add(event.key);
 }
 
