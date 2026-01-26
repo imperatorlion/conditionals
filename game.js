@@ -1065,17 +1065,6 @@ function drawPlayer() {
   ctx.fill();
   ctx.stroke();
 
-  ctx.fillStyle = "#111111";
-  ctx.fillRect(centerX - 6, centerY - 16, 12, 4);
-  ctx.fillRect(centerX - 8, centerY - 14, 16, 4);
-  ctx.strokeRect(centerX - 6, centerY - 16, 12, 4);
-  ctx.beginPath();
-  ctx.moveTo(centerX - 8, centerY - 12);
-  ctx.lineTo(centerX - 14, centerY - 10);
-  ctx.moveTo(centerX + 8, centerY - 12);
-  ctx.lineTo(centerX + 14, centerY - 10);
-  ctx.stroke();
-
   ctx.fillStyle = "#5b3f99";
   ctx.fillRect(centerX - 10, centerY - 6, 20, 16);
   ctx.strokeRect(centerX - 10, centerY - 6, 20, 16);
@@ -1318,8 +1307,8 @@ const mini = {
   ballY: 240,
   ballRadius: 14,
   goalX: 200,
-  goalWidth: 104,
-  goalSpeed: 3.0,
+  goalWidth: 88,
+  goalSpeed: 3.45,
   shotInProgress: false,
   shotSpeed: 6,
   direction: 1,
