@@ -71,6 +71,20 @@ const obstacles = [
   { x: 7, y: 9 },
   { x: 12, y: 10 },
   { x: 13, y: 10 },
+  { x: 5, y: 1 },
+  { x: 9, y: 1 },
+  { x: 15, y: 4 },
+  { x: 15, y: 5 },
+  { x: 0, y: 8 },
+  { x: 1, y: 8 },
+  { x: 4, y: 7 },
+  { x: 5, y: 7 },
+  { x: 9, y: 6 },
+  { x: 10, y: 6 },
+  { x: 12, y: 2 },
+  { x: 12, y: 3 },
+  { x: 8, y: 10 },
+  { x: 9, y: 10 },
 ];
 
 const levels = [
@@ -379,7 +393,7 @@ const questionBank = {
     },
     {
       type: "input",
-      text: "Vul in: If Jaimy ______ (not ask), she will not know.",
+      text: "Vul in: If Jaimy ______ (not ask), he will not know.",
       answer: ["doesn't ask", "does not ask"],
     },
     {
@@ -496,11 +510,11 @@ const questionBank = {
       type: "mcq",
       text: "Welke zin past bij Jaimy?",
       choices: [
-        "If Jaimy asks questions, she will learn faster.",
-        "If Jaimy asked questions, she will learn faster.",
-        "If Jaimy will ask questions, she learns faster.",
+        "If Jaimy asks questions, he will learn faster.",
+        "If Jaimy asked questions, he will learn faster.",
+        "If Jaimy will ask questions, he learns faster.",
       ],
-      answer: "If Jaimy asks questions, she will learn faster.",
+      answer: "If Jaimy asks questions, he will learn faster.",
     },
     {
       type: "input",
@@ -656,7 +670,7 @@ const questionBank = {
     },
     {
       type: "input",
-      text: "Vul in: If Jaimy ______ (have) a car, she would drive to school.",
+      text: "Vul in: If Jaimy ______ (have) a car, he would drive to school.",
       answer: ["had"],
     },
     {
@@ -1042,8 +1056,8 @@ function drawPlayer() {
   ctx.save();
   ctx.lineJoin = "round";
   ctx.lineCap = "round";
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = "#3b2a2a";
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = "#000000";
 
   ctx.fillStyle = "#f8c9a6";
   ctx.beginPath();
@@ -1304,8 +1318,8 @@ const mini = {
   ballY: 240,
   ballRadius: 14,
   goalX: 200,
-  goalWidth: 122,
-  goalSpeed: 2.4,
+  goalWidth: 104,
+  goalSpeed: 3.0,
   shotInProgress: false,
   shotSpeed: 6,
   direction: 1,
